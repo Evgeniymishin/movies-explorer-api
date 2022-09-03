@@ -8,14 +8,11 @@ const INTERNAL_SERVER_ERROR = 500;
 
 // security
 const SALT_LENGTH = 10;
-const SECRET_KEY = 'key';
+const JWT_SECRET_DEV = 'key';
 const TOKEN_LIFETIME = '1d';
 
 // server params
 const PORT = 3000;
-
-// RegExp patterns
-const REG_EXP_LINK = /^http(s|):\/\/(www.|)((\w+|\d+)(-|\.))+[a-z]{2,3}(\S+|)(#| +|)$/i;
 
 // other
 const MONGO_DUPLICATE_CODE = 11000;
@@ -29,8 +26,7 @@ module.exports = {
   CONFLICT,
   INTERNAL_SERVER_ERROR,
   SALT_LENGTH,
-  SECRET_KEY,
+  JWT_SECRET_DEV,
   TOKEN_LIFETIME,
-  REG_EXP_LINK,
   MONGO_DUPLICATE_CODE,
 };
