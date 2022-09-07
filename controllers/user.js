@@ -20,17 +20,11 @@ module.exports.getCurrentUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        next(new NotFoundError('Пользователь по указанному id не найден'));
+        return new NotFoundError('Пользователь по указанному id не найден');
       }
       return res.send(user);
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new NotFoundError('Некорректный id пользователя'));
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
 
 module.exports.updateUserInfo = (req, res, next) => {
@@ -44,7 +38,7 @@ module.exports.updateUserInfo = (req, res, next) => {
   )
     .then((user) => {
       if (!user) {
-        next(new NotFoundError('Пользователь по указанному id не найден'));
+        return new NotFoundError('Пользователь по указанному id не найден');
       }
       return res.send({
         _id: user._id,
@@ -57,6 +51,8 @@ module.exports.updateUserInfo = (req, res, next) => {
         next(new BadRequestError(`Переданы некорректные данные: ${err}`));
       } else if (err.name === 'CastError') {
         next(new BadRequestError('Пользователь по указанному id не найден'));
+      } else if (err.code === MONGO_DUPLICATE_CODE) {
+        next(new ConflictError('Пользователь с таким email уже существует'));
       } else {
         next(err);
       }
@@ -93,11 +89,11 @@ module.exports.login = (req, res, next) => {
   return User.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        next(new UnauthorizedError('Пользователь по указанному id не найден'));
+        next(new UnauthorizedError('Неправильная почта или пароль'));
       } else {
         bcrypt.compare(password, user.password, (err, isValidPassword) => {
           if (!isValidPassword) {
-            return next(new UnauthorizedError('Неверный пароль'));
+            return next(new UnauthorizedError('Неправильная почта или пароль'));
           }
           const token = jwt.sign(
             { _id: user._id },

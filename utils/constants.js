@@ -14,8 +14,9 @@ const TOKEN_LIFETIME = '1d';
 // server params
 const PORT = 3000;
 
-// other
+// db
 const MONGO_DUPLICATE_CODE = 11000;
+const MONGO_ADDRESS_DEV = 'mongodb://localhost:27017/moviesdb';
 
 module.exports = {
   PORT,
@@ -29,4 +30,5 @@ module.exports = {
   JWT_SECRET_DEV,
   TOKEN_LIFETIME,
   MONGO_DUPLICATE_CODE,
+  MONGO_ADDRESS_DEV,
 };

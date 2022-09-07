@@ -44,10 +44,10 @@ module.exports.deleteMovieById = (req, res, next) => {
     .orFail(() => new NotFoundError('Фильм по указанному id не найден'))
     .then((movie) => {
       if (!movie.owner.equals(req.user._id)) {
-        next(new ForbiddenError('Удаление чужих фильмов запрещено'));
+        throw new ForbiddenError('Удаление чужих фильмов запрещено');
       } else {
-        movie.remove();
-        res.send({ message: 'Фильм удален' });
+        return movie.remove()
+          .then(() => res.send({ message: 'Фильм удален' }));
       }
     })
     .catch((err) => {
