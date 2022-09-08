@@ -10,10 +10,10 @@ router.get('/signout', (req, res) => {
   res.clearCookie('access-token').send({ message: 'Вы вышли из системы' });
 });
 
-router.use('/users', auth, require('./user'));
-router.use('/movies', auth, require('./movie'));
-
 router.use(auth);
+router.use('/users', require('./user'));
+router.use('/movies', require('./movie'));
+
 router.all('*', (req, res, next) => {
   next(new NotFoundError('Неправильный путь'));
 });
