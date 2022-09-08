@@ -13,7 +13,8 @@ router.get('/signout', (req, res) => {
 router.use('/users', auth, require('./user'));
 router.use('/movies', auth, require('./movie'));
 
-router.all('*', auth, (req, res, next) => {
+router.use(auth);
+router.all('*', (req, res, next) => {
   next(new NotFoundError('Неправильный путь'));
 });
 
