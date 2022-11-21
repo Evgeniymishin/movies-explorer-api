@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
   origin: ['http://localhost:3000',
+    'localhost:3000',
     'https://evgeniymishin.moviesexplorer.nomorepartiesxyz.ru',
     'http://evgeniymishin.moviesexplorer.nomorepartiesxyz.ru'],
   credentials: true,
