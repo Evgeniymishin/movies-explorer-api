@@ -27,9 +27,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({
-  origin: '*',
-}));
+app.use(cors());
 app.use(routes);
 app.use(errorLogger);
 app.use(errors());
