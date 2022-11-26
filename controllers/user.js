@@ -100,7 +100,7 @@ module.exports.login = (req, res, next) => {
             NODE_ENV === 'production' ? JWT_SECRET : JWT_SECRET_DEV,
             { expiresIn: TOKEN_LIFETIME },
           );
-          return res.cookie('access_token', token, { httpOnly: true, sameSite: true }).send({ message: 'Вы успешно авторизовались' });
+          return res.cookie('access_token', token, { httpOnly: true, sameSite: 'none', secure: true }).send({ message: 'Вы успешно авторизовались' });
         });
       }
     })
