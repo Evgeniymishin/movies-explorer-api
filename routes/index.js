@@ -7,7 +7,7 @@ const { validateSignIn, validateSignUp } = require('../middlewares/validations')
 router.post('/signin', validateSignIn, login);
 router.post('/signup', validateSignUp, createUser);
 router.get('/signout', (req, res) => {
-  res.clearCookie('access-token').send({ message: 'Вы вышли из системы' });
+  res.clearCookie('access_token').send({ message: 'Вы вышли из системы' });
 });
 
 router.use(auth);
